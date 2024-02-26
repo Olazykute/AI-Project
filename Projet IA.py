@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import polars as pol
+import polars as pl
 
-data = pol.read_csv("sero_features_4.csv")
+data = pl.read_csv("sero_features_4.csv")
 print(data)
 #print(data[:,0])
 
