@@ -15,7 +15,7 @@ plt.show()
 corr_matrix = data_0.corr()
 
 # Define correlation threshold
-threshold = 0.7
+threshold = 0.5
 
 # Extract highly correlated columns
 highly_correlated_cols = []
