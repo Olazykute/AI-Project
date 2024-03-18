@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import polars as pl
-import pandas as pd
 
 data_0 = pl.read_csv("Features_by_window_size/sero_features_4.csv")
 print(data_0)
@@ -52,6 +51,13 @@ plt.figure()
 plt.plot(x,y4,color="red")
 plt.plot(x,y5,color="blue")
 plt.plot(x,y6,color="green")
+
+plt.figure(figsize=(10, 8))
+plt.imshow(corr_matrix, cmap='coolwarm', interpolation='nearest')
+plt.colorbar(label='Corrélation')
+plt.title("Matrice de corrélation")
+plt.xticks(range(len(corr_matrix.columns)), corr_matrix.columns, rotation=90)
+plt.yticks(range(len(corr_matrix.columns)), corr_matrix.columns)
 
 plt.show()
 
