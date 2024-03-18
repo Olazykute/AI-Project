@@ -31,4 +31,4 @@ ValidationCurveDisplay.from_estimator(
 )
 plt.show()
 
-dump( modele, 'Vehicle_prediction_DecisionTree.joblib')
+#dump( modele, 'Vehicle_prediction_DecisionTree.joblib')
