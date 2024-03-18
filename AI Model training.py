@@ -3,19 +3,26 @@ import matplotlib.pyplot as plt
 import polars as pl
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import ValidationCurveDisplay
+from sklearn.svm import SVC
 
-data=pl.read_csv("sensor_raw.csv")
+data=pd.read_csv("Features_by_window_size/sero_features_4.csv")
 
-X = data[:,1:len(data)] #les caractéristiques
-y = data[:, 0]  #les résulats (classes)
+X = data.iloc[:, 1:len(data)] #les caractéristiques
+y = data.iloc[:, 0]  #les résulats (classes)
 
-from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-from sklearn.naive_bayes import MultinomialNB
-modele = MultinomialNB()
+modele = GaussianNB()
 modele.fit(X_train, y_train)
 
 y_pred = modele.predict(X_test)
-from sklearn.metrics import accuracy_score
+
 print("precsion : ", accuracy_score(y_test, y_pred))
+
+ValidationCurveDisplay.from_estimator(
+   SVC(kernel="linear"), X, y, param_name="C", param_range=np.logspace(-7, 3, 10)
+)
+plt.show()
