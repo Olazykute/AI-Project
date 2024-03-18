@@ -5,7 +5,7 @@ import polars as pl
 data_0 = pl.read_csv("Features_by_window_size/sero_features_4.csv")
 print(data_0)
 
-def show_corr(df, threshold=0.7): # Show highly correlated columns
+def show_corr(df, threshold=0.5): # Show highly correlated columns
     # Calculate correlation matrix
     corr_matrix = df.corr()
     
@@ -58,7 +58,6 @@ def correlation_matrix(df): # plot correlation matrix
     fig, ax = plt.subplots(figsize=(10, 8))
     cax = ax.matshow(corr, cmap='coolwarm', interpolation='nearest')
     fig.colorbar(cax)
-    plt.colorbar(label='Corrélation')
     plt.title("Matrice de corrélation")
     plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
     plt.yticks(range(len(corr.columns)), corr.columns)
@@ -66,4 +65,5 @@ def correlation_matrix(df): # plot correlation matrix
     
 hc_cols = show_corr(data_0)
 data_0_filtered = drop_corr(data_0, hc_cols)
-show_corr(data_0)
+show_corr(data_0_filtered)
+correlation_matrix(data_0_filtered)
