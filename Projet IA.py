@@ -2,10 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import polars as pl
 
-data_0 = pl.read_csv("Features_by_window_size/sero_features_4.csv")
-print(data_0)
+class Data:
+    def __init__(self, path):
+        self.raw = pl.read_csv(path)
+        self.filtered = self.raw
 
-def show_corr(df, threshold=0.5): # Show highly correlated columns
+data_0 = Data("Features_by_window_size/sero_features_4.csv")
+print(data_0.raw)
+
+def show_corr(df, threshold=0.7): # Show highly correlated columns
     # Calculate correlation matrix
     corr_matrix = df.corr()
     
@@ -63,7 +68,7 @@ def correlation_matrix(df): # plot correlation matrix
     plt.yticks(range(len(corr.columns)), corr.columns)
     plt.show()
     
-hc_cols = show_corr(data_0)
-data_0_filtered = drop_corr(data_0, hc_cols)
-show_corr(data_0_filtered)
-correlation_matrix(data_0_filtered)
+hc_cols = show_corr(data_0.raw)
+data_0.filtered = drop_corr(data_0.raw, hc_cols)
+show_corr(data_0.filtered)
+correlation_matrix(data_0.filtered)
