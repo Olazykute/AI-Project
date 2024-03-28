@@ -41,7 +41,7 @@ print(print("Classification Report on test:\n", report))
 # Le classification report donne la précision du modèle par classe
 
 # Perform cross-validation
-cv_scores = cross_val_score(modele, X_test, y, cv=5)
+cv_scores = cross_val_score(modele, X_test, y_test, cv=5)
 print("Cross-Validation Scores:", cv_scores)
 print("Mean Cross-Validation Score:", cv_scores.mean())
 # La validation croisée teste le modèle 5 fois de suite dans l'ensemble de test.

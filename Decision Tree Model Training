@@ -2,13 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import polars as pl
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import ValidationCurveDisplay
 from sklearn.svm import SVC
 from joblib import dump, load
+from Projet_IA import data_0
+# explicitly require this experimental feature
+from sklearn.experimental import enable_halving_search_cv  # noqa
+# now you can import normally from model_selection
+from sklearn.model_selection import HalvingGridSearchCV
+from sklearn.model_selection import HalvingRandomSearchCV
 
-data=pl.read_csv("Features_by_window_size/sero_features_4.csv")
+#data=pl.read_csv("Features_by_window_size/sero_features_4.csv")
+data=data_0.filtered
 print (data)
 
 X = data[:, 1:len(data)] #les caractéristiques
@@ -23,12 +30,23 @@ modele = DecisionTreeClassifier()
 modele.fit(X_train, y_train)
 
 y_pred = modele.predict(X_test)
+y_pred2 = modele.predict(X_train)
+print("precsion en test: ", accuracy_score(y_test, y_pred))
+print("precsion en entrainement: ", accuracy_score(y_train, y_pred2))
 
-print("precsion : ", accuracy_score(y_test, y_pred))
+report = classification_report(y_test, y_pred)
+print(print("Classification Report on test:\n", report))
+# Le classification report donne la précision du modèle par classe
 
-ValidationCurveDisplay.from_estimator(
-   SVC(kernel="linear"), X, y, param_name="C", param_range=np.logspace(-7, 3, 10)
-)
+# Perform cross-validation
+cv_scores = cross_val_score(modele, X_test, y_test, cv=5)
+print("Cross-Validation Scores:", cv_scores)
+print("Mean Cross-Validation Score:", cv_scores.mean())
+# La validation croisée teste le modèle 5 fois de suite dans l'ensemble de test.
+
+# ValidationCurveDisplay.from_estimator(
+#    SVC(kernel="linear"), X, y, param_name="C", param_range=np.logspace(-7, 3, 10)
+# )
 plt.show()
 
-#dump( modele, 'Vehicle_prediction_DecisionTree.joblib')
+dump( modele, 'Vehicle_prediction_DecisionTree.joblib')
