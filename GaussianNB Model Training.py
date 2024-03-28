@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import ValidationCurveDisplay
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import ValidationCurveDisplay, cross_val_score
 from joblib import dump, load
 from sklearn.metrics import confusion_matrix 
 from sklearn.preprocessing import StandardScaler
@@ -19,14 +19,14 @@ y = y.to_numpy()
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-print(X_train)
+# print(X_train)
 # Normalisation et standardisation
 scaler = StandardScaler()
 # Fit the scaler to your data and transform the matrix
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.fit_transform(X_test)
 
-print(X_train)
+#print(X_train)
 
 modele = GaussianNB()
 modele.fit(X_train, y_train)
@@ -35,6 +35,17 @@ y_pred = modele.predict(X_test)
 y_pred2 = modele.predict(X_train)
 print("precsion en test: ", accuracy_score(y_test, y_pred))
 print("precsion en entrainement: ", accuracy_score(y_train, y_pred2))
+
+report = classification_report(y_test, y_pred)
+print(print("Classification Report on test:\n", report))
+# Le classification report donne la précision du modèle par classe
+
+# Perform cross-validation
+cv_scores = cross_val_score(modele, X_test, y, cv=5)
+print("Cross-Validation Scores:", cv_scores)
+print("Mean Cross-Validation Score:", cv_scores.mean())
+# La validation croisée teste le modèle 5 fois de suite dans l'ensemble de test.
+
 
 # Inutile pour un GaussienNB
 #ValidationCurveDisplay.from_estimator(
@@ -45,6 +56,6 @@ plt.show()
 # ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
 
 # enregistre le modèle dans un fichier joblib, dump pour enregistrer, load pour le charger
-dump( modele, 'Vehicle_prediction_GaussianNB.joblib')
+#dump( modele, 'Vehicle_prediction_GaussianNB.joblib')
 
 # No need for hyperparameters in a GaussianNB model
