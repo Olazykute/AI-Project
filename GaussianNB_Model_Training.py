@@ -63,6 +63,6 @@ X_test = data_scaling(X_test)
 GaussianNB_model=entrainement_modele(GaussianNB(), X_train, y_train, X_test, y_test)
 
 # enregistre le modèle dans un fichier joblib, dump pour enregistrer, load pour le charger
-save_model(GaussianNB_model, 'Vehicle_prediction_GaussianNB')
+# save_model(GaussianNB_model, 'Vehicle_prediction_GaussianNB')
 
 # No need for hyperparameters in a GaussianNB model
