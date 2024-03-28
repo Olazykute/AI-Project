@@ -9,12 +9,13 @@ from sklearn.svm import SVC
 from joblib import dump, load
 from sklearn.metrics import confusion_matrix 
 from sklearn.preprocessing import StandardScaler
+import Projet_IA as P
 
-data=pl.read_csv("Features_by_window_size/sero_features_4.csv")
-print (data)
+# data=pl.read_csv("Features_by_window_size/sero_features_4.csv")
+# print (data)
 
-X = data[:, 1:len(data)] #les caractéristiques
-y = data[:, 0]  #les résulats (classes)
+X = P.data_0.filtered[:, 1:len(P.data_0.filtered)] #les caractéristiques
+y = P.data_0.filtered[:, 0]  #les résulats (classes)
 
 X = X.to_numpy()
 y = y.to_numpy()
