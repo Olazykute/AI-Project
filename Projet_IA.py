@@ -72,3 +72,7 @@ hc_cols = show_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
 show_corr(data_0.filtered)
 correlation_matrix(data_0.filtered)
+
+# To observe the filtered data
+# print(data_0.filtered)
+# data_0.filtered.write_csv('Sensor filtered.csv')
