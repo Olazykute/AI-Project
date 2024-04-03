@@ -22,19 +22,19 @@ def data_scaling(x):
     x=scaler.fit_transform(x)  # Fit the scaler to your data and transform the matrix
     return x
 
-def save_model(modele, nom):
-    dump( modele, nom+'.joblib')
+def save_model(model, nom):
+    dump( model, nom+'.joblib')
     return
 
 def load_model(nom):
-    modele=load(nom)
-    return modele
+    model=load(nom)
+    return model
 
-def entrainement_modele(modele, X_train, y_train, X_test, y_test):
-    modele.fit(X_train, y_train) # Fitting is equal to training
+def training_model(model, X_train, y_train, X_test, y_test):
+    model.fit(X_train, y_train) # Fitting is equal to training
 
-    y_pred = modele.predict(X_test)
-    y_pred2 = modele.predict(X_train)
+    y_pred = model.predict(X_test)
+    y_pred2 = model.predict(X_train)
     print("precsion en test: ", accuracy_score(y_test, y_pred))
     print("precsion en entrainement: ", accuracy_score(y_train, y_pred2))
 
@@ -43,12 +43,12 @@ def entrainement_modele(modele, X_train, y_train, X_test, y_test):
     # Le classification report donne la précision du modèle par classe
 
     # Perform cross-validation
-    cv_scores = cross_val_score(modele, X_test, y_test, cv=5)
+    cv_scores = cross_val_score(model, X_test, y_test, cv=5)
     print("Cross-Validation Scores:", cv_scores)
     print("Mean Cross-Validation Score:", cv_scores.mean())
     # La validation croisée teste le modèle 5 fois de suite dans l'ensemble de test.
 
-    return modele
+    return model
 
 X, y = data_transfer(P.data_0.filtered)
 
@@ -60,7 +60,7 @@ X_train = data_scaling(X_train)
 X_test = data_scaling(X_test)
 
 # GaussianNB_model=GaussianNB()
-GaussianNB_model=entrainement_modele(GaussianNB(), X_train, y_train, X_test, y_test)
+GaussianNB_model=training_model(GaussianNB(), X_train, y_train, X_test, y_test)
 
 # enregistre le modèle dans un fichier joblib, dump pour enregistrer, load pour le charger
 # save_model(GaussianNB_model, 'Vehicle_prediction_GaussianNB')

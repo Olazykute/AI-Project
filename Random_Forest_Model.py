@@ -8,7 +8,7 @@ from sklearn.model_selection import ValidationCurveDisplay
 from sklearn.svm import SVC
 from joblib import dump, load
 from Projet_IA import data_0
-from GaussianNB_Model_Training import data_transfer, data_scaling, save_model, load_model, entrainement_modele
+from GaussianNB_Model_Training import data_transfer, data_scaling, save_model, load_model, training_model
 from sklearn.experimental import enable_halving_search_cv
 from sklearn.model_selection import HalvingGridSearchCV
 
@@ -21,7 +21,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
 X_train = data_scaling(X_train)
 X_test = data_scaling(X_test)
 
-modele_clf = entrainement_modele(RandomForestClassifier(), X_train, y_train, X_test, y_test)
+model_clf = training_model(RandomForestClassifier(), X_train, y_train, X_test, y_test)
 
 # save_model(modele_clf, 'Vehicle_prediction_RandomForest')
 
@@ -37,7 +37,7 @@ param_grid = {
     'bootstrap': [True, False]
 }
 
-HGSearch = HalvingGridSearchCV(modele_clf, param_grid, cv=5, factor=2, max_resources=100)
+HGSearch = HalvingGridSearchCV(model_clf, param_grid, cv=5, factor=2, max_resources=100)
 HGSearch.fit(X, y)
 
 print("Best parameters found: ", HGSearch.best_params_)
