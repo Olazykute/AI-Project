@@ -31,10 +31,10 @@ def load_model(nom):
     return model
 
 def training_model(model, X_train, y_train, X_test, y_test):
-    model.fit(X_train, y_train) # Fitting is equal to training
+    model.fit(X_train, y_train) # Model fit c'est l'entrainement du modèle
 
-    y_pred = model.predict(X_test)
-    y_pred2 = model.predict(X_train)
+    y_pred = model.predict(X_test) # Prediction sur l'ensemble de test
+    y_pred2 = model.predict(X_train) # Prédiction sur l'ensemble d'entrainement
     print("precsion en test: ", accuracy_score(y_test, y_pred))
     print("precsion en entrainement: ", accuracy_score(y_train, y_pred2))
 
@@ -43,10 +43,10 @@ def training_model(model, X_train, y_train, X_test, y_test):
     # Le classification report donne la précision du modèle par classe
 
     # Perform cross-validation
-    cv_scores = cross_val_score(model, X_test, y_test, cv=5)
+    cv_scores = cross_val_score(model, X_test, y_test, cv=2)
     print("Cross-Validation Scores:", cv_scores)
     print("Mean Cross-Validation Score:", cv_scores.mean())
-    # La validation croisée teste le modèle 5 fois de suite dans l'ensemble de test.
+    # La validation croisée teste le modèle 'cv' fois de suite dans l'ensemble de test.
 
     return model
 
@@ -57,6 +57,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
 print("Pre-scaling")
 print(X_train)
+
 # Normalisation et standardisation
 X_train = data_scaling(X_train)
 X_test = data_scaling(X_test)
