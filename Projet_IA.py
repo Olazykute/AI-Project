@@ -10,10 +10,8 @@ class Data:
 
 
 data_0 = Data("Features_by_window_size/sero_features_4.csv")
-print(data_0.raw)
 
-
-def cal_corr(df, threshold=0.7):  # Show highly correlated columns
+def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
     # Calculate correlation matrix
     corr_matrix = df.corr()
 
@@ -85,13 +83,14 @@ def normalize(df: pl.DataFrame):
     return df
 
 
-# data_0.normalized = normalize(data_0.raw)
-# print(data_0.normalized)
+print(data_0.raw)
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
 #cal_corr(data_0.filtered)
-correlation_matrix(data_0.filtered)
+#correlation_matrix(data_0.filtered)
 
+'''
 # To observe the filtered data
-# print(data_0.filtered)
-# data_0.filtered.write_csv('Sensor filtered.csv')
+print(data_0.filtered)
+data_0.filtered.write_csv('Sensor filtered.csv')
+'''
