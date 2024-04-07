@@ -86,10 +86,10 @@ def normalize(df: pl.DataFrame):
     return df
 
 
-data_0.normalized = normalize(data_0.raw)
-print(data_0.normalized)
-hc_cols = cal_corr(data_0.normalized)
-data_0.filtered = drop_corr(data_0.normalized, hc_cols)
+# data_0.normalized = normalize(data_0.raw)
+# print(data_0.normalized)
+hc_cols = cal_corr(data_0.raw)
+data_0.filtered = drop_corr(data_0.raw, hc_cols)
 #cal_corr(data_0.filtered)
 correlation_matrix(data_0.filtered)
 

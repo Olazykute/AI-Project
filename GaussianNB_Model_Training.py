@@ -55,9 +55,13 @@ X, y = data_transfer(P.data_0.filtered)
 # Division du dataset en différentes parties
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
+print("Pre-scaling")
+print(X_train)
 # Normalisation et standardisation
 X_train = data_scaling(X_train)
 X_test = data_scaling(X_test)
+print("Post-scaling")
+print(X_train)
 
 # GaussianNB_model=GaussianNB()
 GaussianNB_model=training_model(GaussianNB(), X_train, y_train, X_test, y_test)
