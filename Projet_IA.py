@@ -6,7 +6,6 @@ import polars as pl
 class Data:
     def __init__(self, path):
         self.raw = pl.read_csv(path)
-        self.normalized = self.raw
         self.filtered = self.raw
 
 

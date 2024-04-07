@@ -1,9 +1,8 @@
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay
 from sklearn.model_selection import ValidationCurveDisplay, cross_val_score
 from joblib import dump, load
-from sklearn.metrics import confusion_matrix 
 from sklearn.preprocessing import StandardScaler
 import Projet_IA as P
 
@@ -49,6 +48,10 @@ def training_model(model, X_train, y_train, X_test, y_test):
     # La validation croisée teste le modèle 'cv' fois de suite dans l'ensemble de test.
 
     return model
+
+def disp_confusionMatrix():
+    
+    return
 
 X, y = data_transfer(P.data_0.filtered)
 

@@ -5,7 +5,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import ValidationCurveDisplay
-from sklearn.svm import SVC
 from joblib import dump, load
 from Projet_IA import data_0
 from GaussianNB_Model_Training import data_transfer, data_scaling, save_model, load_model, entrainement_modele
@@ -23,7 +22,7 @@ X_test = data_scaling(X_test)
 
 modele_clf = entrainement_modele(DecisionTreeClassifier(), X_train, y_train, X_test, y_test)
 
-save_model(modele_clf, 'Vehicle_prediction_DecisionTree')
+# save_model(modele_clf, 'Vehicle_prediction_DecisionTree')
 
 param_grid = {
     'criterion': ['gini', 'entropy'],
