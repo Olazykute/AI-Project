@@ -1,6 +1,4 @@
 import Projet_IA as P
-# import matplotlib.pyplot as plt
-# import numpy as np
 from sklearn.naive_bayes import GaussianNB
 
 print("GaussianNB Model")
