@@ -16,8 +16,8 @@ X_test = P.data_scaling(X_test)
 
 model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeClassifier(
     criterion="entropy",
-    max_depth=30, min_samples_split=2,
-    min_samples_leaf=1, max_features="sqrt", max_leaf_nodes=None, min_impurity_decrease=0.1),
+    max_depth=10, min_samples_split=2,
+    min_samples_leaf=1, max_features="sqrt", max_leaf_nodes=10, min_impurity_decrease=0.1),
     X_train, y_train, X_test, y_test)
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
@@ -49,8 +49,4 @@ print("Best score: ", HGSearch.best_score_)
 # Plot learning curve
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
-P.plot_learning_curve(DecisionTreeClassifier(
-    criterion="entropy",
-    max_depth=30, min_samples_split=2,
-    min_samples_leaf=1, max_features="sqrt", max_leaf_nodes=None, min_impurity_decrease=0.1),
-    'Learning Curve For Decision Tree Model', X, y, cv=5)
+P.plot_learning_curve(model_clf,'Learning Curve For Decision Tree Model', X, y, cv=5)

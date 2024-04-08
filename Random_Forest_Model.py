@@ -46,7 +46,5 @@ print("Best score: ", HGSearch.best_score_)
 # Plot learning curve
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
-P.plot_learning_curve(RandomForestClassifier(n_estimators=100, criterion='entropy', max_depth=10, min_samples_split=5,
-                                           min_samples_leaf=2, max_features='log2', max_leaf_nodes=10, bootstrap=True),
-                    'Learning Curve For Random Forest Model', X, y, cv=5)
+P.plot_learning_curve(model_clf,'Learning Curve For Random Forest Model', X, y, cv=5)
 
