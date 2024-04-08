@@ -165,6 +165,30 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None,
     plt.show()
     return plt
 
+def plot_gauss(data_gauss):
+    plt.figure(figsize=(12, 12))
+
+    i=0
+    for col in data_gauss.columns:
+        # Calculer la moyenne et l'écart type
+        moy = data_gauss[col].mean()
+        std = data_gauss[col].std()
+
+        # Création de la courbe de répartition gaussienne
+        x = np.linspace(moy - 3*std, moy + 3*std, 100)
+        y = (1/(std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - moy) / std) ** 2)
+
+        # Plot de la courbe de répartition gaussienne
+        plt.subplot(4, 4, i + 1)
+        i += 1
+        plt.plot(x, y, color='red')
+        plt.hist(data_gauss[col], bins=50, density=True, color='blue')
+        #plt.title(f'{col}')
+        plt.xlabel(col)
+        plt.ylabel('Fréquence')
+    plt.legend()
+    plt.tight_layout()        
+    plt.show()
 
 # print(data_0.raw)
 hc_cols = cal_corr(data_0.raw)
@@ -173,30 +197,8 @@ data_0.filtered = drop_corr(data_0.raw, hc_cols)
 # correlation_matrix(data_0.filtered)
 
 data_gauss = data_0.filtered.drop(columns='Target')
+plot_gauss(data_gauss)
 
-plt.figure(figsize=(12, 12))
-
-i=0
-for col in data_gauss.columns:
-    # Calculer la moyenne et l'écart type
-    moy = data_gauss[col].mean()
-    std = data_gauss[col].std()
-
-    # Création de la courbe de répartition gaussienne
-    x = np.linspace(moy - 3*std, moy + 3*std, 100)
-    y = (1/(std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - moy) / std) ** 2)
-
-    # Plot de la courbe de répartition gaussienne
-    plt.subplot(4, 4, i + 1)
-    i += 1
-    plt.plot(x, y, color='red')
-    plt.hist(data_gauss[col], bins=50, density=True, color='blue')
-    #plt.title(f'{col}')
-    plt.xlabel(col)
-    plt.ylabel('Fréquence')
-plt.legend()
-plt.tight_layout()        
-plt.show()
 
 '''
 # To observe the filtered data
