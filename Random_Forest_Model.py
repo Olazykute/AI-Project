@@ -27,14 +27,14 @@ model_clf = training_model(RandomForestClassifier(), X_train, y_train, X_test, y
 
 # This part is to research the best parameters to maximize the model's accuracy
 param_grid = {
-    'n_estimators': [100, 200, 300],
-    'criterion': ['gini', 'entropy'],
-    'max_depth': [None, 10, 20],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4],
-    'max_features': [1 , 'sqrt', 'log2'],
-    'max_leaf_nodes': [None, 10, 20],
-    'bootstrap': [True, False]
+    'n_estimators': [100, 200, 300], #100
+    'criterion': ['gini', 'entropy'], #entropy
+    'max_depth': [None, 10, 20], #10
+    'min_samples_split': [2, 5, 10], #5
+    'min_samples_leaf': [1, 2, 4], #2
+    'max_features': ['sqrt', 'log2'],#log2
+    'max_leaf_nodes': [None, 10, 20], # 10
+    'bootstrap': [True, False] #True
 }
 
 HGSearch = HalvingGridSearchCV(model_clf, param_grid, cv=5, factor=2, max_resources=100)
@@ -42,6 +42,7 @@ HGSearch.fit(X, y)
 
 print("Best parameters found: ", HGSearch.best_params_)
 print("Best score: ", HGSearch.best_score_)
+
 
 # Plot learning curve
 X = np.concatenate((X_train, X_test), axis=0)
