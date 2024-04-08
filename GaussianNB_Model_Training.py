@@ -13,6 +13,8 @@ print(X_train)
 # Normalisation and standardisation
 X_train = P.data_scaling(X_train)
 X_test = P.data_scaling(X_test)
+X = P.data_scaling(X)
+
 print("Post-scaling")
 print(X_train)
 
@@ -20,7 +22,7 @@ print(X_train)
 GaussianNB_model, prediction_test, prediction_train = P.training_model(
     GaussianNB(), X_train, y_train, X_test, y_test)
 
-P.Model_Report(GaussianNB_model, X_test, y_test, prediction_test)
+P.Model_Report(GaussianNB_model, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(GaussianNB_model, y_test,
                        prediction_test, 'Confusion matrix for GaussianNB model')
 

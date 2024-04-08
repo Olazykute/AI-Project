@@ -21,7 +21,7 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
     X_train, y_train, X_test, y_test)
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
-P.Model_Report(model_clf, X_test, y_test, prediction_test)
+P.Model_Report(model_clf, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test,
                        'Confusion matrix for DecisionTreeClassifier model')
 

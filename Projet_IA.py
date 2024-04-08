@@ -114,14 +114,14 @@ def training_model(model, X_train, y_train, X_test, y_test):
     return model, y_pred, y_pred_train
 
 
-def Model_Report(model, X_test, y_test, y_pred):
+def Model_Report(model, X, y , y_test, y_pred):
 
     report = classification_report(y_test, y_pred)
     print(print("Classification Report on test:\n", report))
     # The classification report gives the precision, recall, f1-score and support for each class.
 
-    # Perform cross-validation
-    cv_scores = cross_val_score(model, X_test, y_test, cv=3)
+    # Perform cross-validation on the entire dataset
+    cv_scores = cross_val_score(model, X, y, cv=5)
     print("Cross-Validation Scores:", cv_scores)
     print("Mean Cross-Validation Score:", cv_scores.mean())
     # The cross validation score tests the model'cv' times in the test set.
