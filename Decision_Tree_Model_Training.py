@@ -1,14 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import polars as pl
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.model_selection import ValidationCurveDisplay
-from sklearn.svm import SVC
-from joblib import dump, load
-from Projet_IA import data_0
-from GaussianNB_Model_Training import data_transfer, data_scaling, save_model, load_model, training_model, plot_learning_curve
+import Projet_IA as P
+
 # explicitly require this experimental feature
 from sklearn.experimental import enable_halving_search_cv  
 # now you can import normally from model_selection
@@ -16,15 +8,18 @@ from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.model_selection import HalvingRandomSearchCV
 
 print("Decision Tree Model")
-X, y = data_transfer(data_0.filtered)
+X, y = P.data_transfer(P.data_0.filtered)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
-X_train = data_scaling(X_train)
-X_test = data_scaling(X_test)
+X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.4)
+X_train = P.data_scaling(X_train)
+X_test = P.data_scaling(X_test)
 
-model_clf = training_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test)
+model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeClassifier(), X_train, y_train, X_test, y_test)
 
-save_model(model_clf, 'Vehicle_prediction_DecisionTree')
+# P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
+P.Model_Report(model_clf, X_test, y_test, prediction_test)
+P.disp_confusionMatrix(model_clf, y_test, prediction_test, 'Confusion matrix for DecisionTreeClassifier model')
+
 
 param_grid = { # This part is to research the best parameters to maximize the model's accuracy
     'criterion': ['gini', 'entropy'],
