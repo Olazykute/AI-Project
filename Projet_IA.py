@@ -174,8 +174,10 @@ data_0.filtered = drop_corr(data_0.raw, hc_cols)
 
 data_gauss = data_0.filtered.drop(columns='Target')
 
-for col in data_gauss.columns:
+plt.figure(figsize=(12, 12))
 
+i=0
+for col in data_gauss.columns:
     # Calculer la moyenne et l'écart type
     moy = data_gauss[col].mean()
     std = data_gauss[col].std()
@@ -185,14 +187,16 @@ for col in data_gauss.columns:
     y = (1/(std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - moy) / std) ** 2)
 
     # Plot de la courbe de répartition gaussienne
-    plt.figure()
-    plt.plot(x, y, label='Courbe de répartition gaussienne', color='red')
+    plt.subplot(4, 4, i + 1)
+    i += 1
+    plt.plot(x, y, color='red')
     plt.hist(data_gauss[col], bins=50, density=True, color='blue')
-    plt.title(f'Courbe de répartition gaussienne de {col}')
+    #plt.title(f'{col}')
     plt.xlabel(col)
     plt.ylabel('Fréquence')
-    plt.legend()
-    plt.show()
+plt.legend()
+plt.tight_layout()        
+plt.show()
 
 '''
 # To observe the filtered data
