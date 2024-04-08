@@ -24,7 +24,7 @@ def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
     # Extract highly correlated columns
     highly_correlated_cols = []
 
-    for i in enumerate(df.columns):
+    for i, col in enumerate(df.columns):
         for j in range(i + 1, len(df.columns)):
             corr_value = corr_matrix[(i, j)]
             if abs(corr_value) >= threshold:
@@ -166,18 +166,16 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None,
     return plt
 
 
-
-
 # print(data_0.raw)
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
 # cal_corr(data_0.filtered)
 # correlation_matrix(data_0.filtered)
 
-data_gauss = data_0.filtered.drop(columns = 'Target')
+data_gauss = data_0.filtered.drop(columns='Target')
 
 for col in data_gauss.columns:
-    
+
     # Calculer la moyenne et l'écart type
     moy = data_gauss[col].mean()
     std = data_gauss[col].std()
