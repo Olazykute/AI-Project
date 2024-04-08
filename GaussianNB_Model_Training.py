@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay, confusion_matrix
 from sklearn.model_selection import ValidationCurveDisplay, cross_val_score, learning_curve
 from joblib import dump, load
 from sklearn.preprocessing import StandardScaler
@@ -42,9 +42,9 @@ def training_model(model, X_train, y_train, X_test, y_test):
     model.fit(X_train, y_train)  # Model fit c'est l'entrainement du modèle
 
     y_pred = model.predict(X_test)  # Prediction sur l'ensemble de test
-    y_pred2 = model.predict(X_train)# Prédiction sur l'ensemble d'entrainement
+    y_pred_train = model.predict(X_train)# Prédiction sur l'ensemble d'entrainement
     print("precsion en test: ", accuracy_score(y_test, y_pred))
-    print("precsion en entrainement: ", accuracy_score(y_train, y_pred2))
+    print("precsion en entrainement: ", accuracy_score(y_train, y_pred_train))
 
     report = classification_report(y_test, y_pred)
     print(print("Classification Report on test:\n", report))
@@ -56,11 +56,16 @@ def training_model(model, X_train, y_train, X_test, y_test):
     print("Mean Cross-Validation Score:", cv_scores.mean())
     # The cross validation score tests the model'cv' times in the test set. 
 
+    disp_confusionMatrix(model, y_test, y_pred)
+
     return model
 
 
-def disp_confusionMatrix():
-
+def disp_confusionMatrix(modele, test, prediction):
+    cm=confusion_matrix(test, prediction, labels=modele.classes_)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=modele.classes_)
+    disp.plot()
+    P.plt.show()
     return
 
 print("GaussianNB Model")
