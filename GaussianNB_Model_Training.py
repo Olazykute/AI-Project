@@ -21,7 +21,8 @@ GaussianNB_model, prediction_test, prediction_train = P.training_model(
     GaussianNB(), X_train, y_train, X_test, y_test)
 
 P.Model_Report(GaussianNB_model, X_test, y_test, prediction_test)
-P.disp_confusionMatrix(GaussianNB_model, y_test, prediction_test, 'Confusion matrix for GaussianNB model')
+P.disp_confusionMatrix(GaussianNB_model, y_test,
+                       prediction_test, 'Confusion matrix for GaussianNB model')
 
 # Save the model in a document joblib, dump to save, load is explicit
 # save_model(GaussianNB_model, 'Vehicle_prediction_GaussianNB')
@@ -31,4 +32,5 @@ P.disp_confusionMatrix(GaussianNB_model, y_test, prediction_test, 'Confusion mat
 # Plot learning curve
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
-P.plot_learning_curve(GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)
+P.plot_learning_curve(
+    GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)
