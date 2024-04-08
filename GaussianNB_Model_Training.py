@@ -92,7 +92,7 @@ GaussianNB_model = training_model(
 
 # No need for hyperparameters in a GaussianNB model
 
-def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None, train_sizes=np.linspace(.1, 1.0, 20)):
+def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None, train_sizes=np.linspace(.1, 1.0, 100)):
     plt.figure()
     plt.title(title)
     if ylim is not None:
