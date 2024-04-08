@@ -2,6 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 import Projet_IA as P
 from sklearn.experimental import enable_halving_search_cv
 from sklearn.model_selection import HalvingGridSearchCV
+from sklearn.tree import plot_tree
 
 # KNN, Decision tree/RandomForest, SVM,, Optimisation Bayesienne to see what are the best parameters to tune our model
 print("Random Forest Model")
@@ -19,9 +20,14 @@ model_clf, prediction_test, prediction_train = P.training_model(RandomForestClas
     X_train, y_train, X_test, y_test)
 
 # P.save_model(model_clf, 'Vehicle_prediction_RandomForest')
-P.Model_Report(model_clf, X_test, y_test, prediction_test)
-P.disp_confusionMatrix(model_clf, y_test, prediction_test,
-                       'Confusion matrix for RandomForestClassifier model')
+# P.Model_Report(model_clf, X_test, y_test, prediction_test)
+# P.disp_confusionMatrix(model_clf, y_test, prediction_test, 'Confusion matrix for RandomForestClassifier model')
+tree_to_plot = model_clf.estimators_[5]
+P.plt.figure(figsize=(20,12))
+plot_tree(tree_to_plot, feature_names = P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns ,class_names=['Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'],filled=True);
+P.plt.title ('RandomForest tree number 5')
+P.plt.show()
+
 '''
 # This part is to research the best parameters to maximize the model's accuracy
 # After running this part, we found the best parameters to be the ones we used in the model
