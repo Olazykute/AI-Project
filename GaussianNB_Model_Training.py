@@ -5,7 +5,7 @@ print("GaussianNB Model")
 X, y = P.data_transfer(P.data_0.filtered)
 
 # Divide the dataset in multiple parts
-X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.3)
+X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.2)
 
 print("Pre-scaling")
 print(X_train)
@@ -13,14 +13,14 @@ print(X_train)
 # Normalisation and standardisation
 X_train = P.data_scaling(X_train)
 X_test = P.data_scaling(X_test)
-X = P.data_scaling(X)
+X = P.np.concatenate((X_train, X_test), axis=0)
+y = P.np.concatenate((y_train, y_test), axis=0)
 
 print("Post-scaling")
 print(X_train)
 
 # GaussianNB_model=GaussianNB()
-GaussianNB_model, prediction_test, prediction_train = P.training_model(
-    GaussianNB(), X_train, y_train, X_test, y_test)
+GaussianNB_model, prediction_test, prediction_train = P.training_model(GaussianNB(), X_train, y_train, X_test, y_test)
 
 P.Model_Report(GaussianNB_model, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(GaussianNB_model, y_test,
@@ -32,7 +32,4 @@ P.disp_confusionMatrix(GaussianNB_model, y_test,
 # No need for hyperparameters in a GaussianNB model
 
 # Plot learning curve
-X = P.np.concatenate((X_train, X_test), axis=0)
-y = P.np.concatenate((y_train, y_test), axis=0)
-P.plot_learning_curve(
-    GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)
+P.plot_learning_curve(GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)

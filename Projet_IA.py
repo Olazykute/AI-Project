@@ -136,7 +136,7 @@ def disp_confusionMatrix(modele, test, prediction, titre):
     plt.show()
 
 
-def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None, train_sizes=np.linspace(.1, 1.0, 100)):
+def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None, train_sizes=np.linspace(.1, 1.0, 50)):
     plt.figure()
     plt.title(title)
     if ylim is not None:
