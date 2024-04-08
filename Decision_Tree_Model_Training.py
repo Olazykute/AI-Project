@@ -1,6 +1,6 @@
 from sklearn.tree import DecisionTreeClassifier
 import Projet_IA as P
-
+from sklearn.tree import plot_tree
 # explicitly require this experimental feature
 from sklearn.experimental import enable_halving_search_cv  
 # now you can import normally from model_selection
@@ -20,7 +20,7 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
 P.Model_Report(model_clf, X_test, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test, 'Confusion matrix for DecisionTreeClassifier model')
 
-
+'''
 param_grid = { # This part is to research the best parameters to maximize the model's accuracy
     'criterion': ['gini', 'entropy'],
     'max_depth': [None, 10,20, 30],
@@ -35,9 +35,14 @@ HGSearch.fit(X, y)
 
 print("Best parameters found: ", HGSearch.best_params_)
 print("Best score: ", HGSearch.best_score_)
-
+'''
 # df = pl.DataFrame(HGSearch.cv_results_)
 
+# Plot the Decision Tree
+P.plt.figure(figsize=(20,12))
+plot_tree(model_clf, feature_names = P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns ,class_names=['Sudden Acceleration', "Sudden Right Turn", 'Sudden Left Turn', 'Sudden Break'],filled=True);
+P.plt.title ('Decision Tree')
+P.plt.show()
 '''
 # Plot learning curve
 X = np.concatenate((X_train, X_test), axis=0)
