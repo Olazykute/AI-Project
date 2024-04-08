@@ -7,6 +7,7 @@ from sklearn.model_selection import ValidationCurveDisplay, cross_val_score, lea
 from joblib import dump, load
 from sklearn.preprocessing import StandardScaler
 
+
 class Data:
     def __init__(self, path):
         self.raw = pl.read_csv(path)
@@ -14,6 +15,7 @@ class Data:
 
 
 data_0 = Data("Features_by_window_size/sero_features_4.csv")
+
 
 def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
     # Calculate correlation matrix
@@ -105,7 +107,7 @@ def training_model(model, X_train, y_train, X_test, y_test):
     model.fit(X_train, y_train)  # Model fit is the training of the model
 
     y_pred = model.predict(X_test)  # Prediction on the test dataset
-    y_pred_train = model.predict(X_train)# Prediction on the training dataset
+    y_pred_train = model.predict(X_train)  # Prediction on the training dataset
     print("precsion en test: ", accuracy_score(y_test, y_pred))
     print("precsion en entrainement: ", accuracy_score(y_train, y_pred_train))
 
@@ -113,7 +115,7 @@ def training_model(model, X_train, y_train, X_test, y_test):
 
 
 def Model_Report(model, X_test, y_test, y_pred):
-    
+
     report = classification_report(y_test, y_pred)
     print(print("Classification Report on test:\n", report))
     # The classification report gives the precision, recall, f1-score and support for each class.
@@ -122,21 +124,23 @@ def Model_Report(model, X_test, y_test, y_pred):
     cv_scores = cross_val_score(model, X_test, y_test, cv=3)
     print("Cross-Validation Scores:", cv_scores)
     print("Mean Cross-Validation Score:", cv_scores.mean())
-    # The cross validation score tests the model'cv' times in the test set. 
+    # The cross validation score tests the model'cv' times in the test set.
 
 
 def disp_confusionMatrix(modele, test, prediction, titre):
-    cm=confusion_matrix(test, prediction, labels=modele.classes_)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=modele.classes_)
+    cm = confusion_matrix(test, prediction, labels=modele.classes_)
+    disp = ConfusionMatrixDisplay(
+        confusion_matrix=cm, display_labels=modele.classes_)
     disp.plot()
     plt.title(titre)
     plt.show()
+
 
 def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None, train_sizes=np.linspace(.1, 1.0, 100)):
     plt.figure()
     plt.title(title)
     if ylim is not None:
-        plt.ylim(*ylim) 
+        plt.ylim(*ylim)
     plt.xlabel("Training examples")
     plt.ylabel("Score")
     train_sizes, train_scores, test_scores = learning_curve(
@@ -161,11 +165,12 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None,
     plt.show()
     return plt
 
-print(data_0.raw)
+
+# print(data_0.raw)
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
-#cal_corr(data_0.filtered)
-#correlation_matrix(data_0.filtered)
+# cal_corr(data_0.filtered)
+# correlation_matrix(data_0.filtered)
 
 '''
 # To observe the filtered data
