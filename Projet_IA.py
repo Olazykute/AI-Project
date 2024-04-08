@@ -24,7 +24,7 @@ def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
     # Extract highly correlated columns
     highly_correlated_cols = []
 
-    for i, col in enumerate(df.columns):
+    for i in enumerate(df.columns):
         for j in range(i + 1, len(df.columns)):
             corr_value = corr_matrix[(i, j)]
             if abs(corr_value) >= threshold:
@@ -38,7 +38,7 @@ def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
 
 def drop_corr(df, highly_correlated_cols):  # Drop highly correlated columns
     for i, col_pair in enumerate(highly_correlated_cols):
-        i_col, j_col = col_pair
+        j_col = col_pair
         if j_col not in [col[0] for col in highly_correlated_cols[:i]]:
             df = df.drop(j_col)
     return df
