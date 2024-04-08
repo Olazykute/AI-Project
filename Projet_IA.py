@@ -76,17 +76,6 @@ def correlation_matrix(df):  # plot correlation matrix
     plt.show()
 
 
-def normalize(df: pl.DataFrame):
-    for col in df.columns:
-        if col == 'Target':
-            continue
-        min_val = df[col].min()
-        max_val = df[col].max()
-        normalized_col = (df[col] - min_val) / (max_val - min_val)
-        df = df.drop(col).with_columns([normalized_col.rename(col)])
-    return df
-
-
 def data_transfer(df):
     X = df[:, 1:len(df)]  # Caracteristics / Parameters
     y = df[:, 0]  # Results (classes) / target
