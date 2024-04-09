@@ -26,7 +26,7 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
     X_train, y_train, X_test, y_test)
 """
 
-model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeClassifier(),X_train, y_train, X_test, y_test)
+model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeClassifier(max_depth=30, max_leaf_nodes=30),X_train, y_train, X_test, y_test)
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
 

@@ -25,6 +25,7 @@ model_clf, prediction_test, prediction_train = P.training_model(RandomForestClas
     X_train, y_train, X_test, y_test)
 '''
 model_clf, prediction_test, prediction_train = P.training_model(RandomForestClassifier(), X_train, y_train, X_test, y_test)
+#Change hyperparameters to reduce overfitting
 # P.save_model(model_clf, 'Vehicle_prediction_RandomForest')
 
 
