@@ -29,11 +29,14 @@ def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
             corr_value = corr_matrix[(i, j)]
             if abs(corr_value) >= threshold:
                 highly_correlated_cols.append((df.columns[i], df.columns[j]))
-
+    """ 
+    # If needed to print highly correlated column pairs
     print("Highly correlated columns:")
     for col_pair in highly_correlated_cols:
         print(col_pair)
+    """
     return highly_correlated_cols
+  
 
 
 def drop_corr(df, highly_correlated_cols):  # Drop highly correlated columns
@@ -189,7 +192,6 @@ def plot_gauss(data_gauss):
         # plt.title(f'{col}')
         plt.xlabel(col)
         plt.ylabel('Fréquence')
-    plt.legend()
     plt.tight_layout()
     plt.show()
 
@@ -198,16 +200,14 @@ def plot_gauss(data_gauss):
 
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
+# print(data_0.filtered)
 
 # cal_corr(data_0.filtered)
+# correlation_matrix(data_0.raw)
 # correlation_matrix(data_0.filtered)
 
-data_gauss = data_0.filtered.drop(columns='Target')
+data_gauss = data_0.filtered.drop('Target')
 # plot_gauss(data_gauss)
 
 
-'''
-# To observe the filtered data
-print(data_0.filtered)
-data_0.filtered.write_csv('Sensor filtered.csv')
-'''
+
