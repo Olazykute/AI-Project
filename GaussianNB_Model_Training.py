@@ -11,8 +11,7 @@ X, y = P.data_transfer(P.data_0.filtered)
 X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.2)
 
 # Normalisation and standardisation
-X_train = P.data_scaling(X_train)
-X_test = P.data_scaling(X_test)
+X_train, X_test = P.data_scaling(X_train, X_test)
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
 
@@ -31,5 +30,5 @@ end_time = time.perf_counter()
 print("Execution time: ", end_time - start_time)
 
 # Plot learning curve
-# P.plot_learning_curve(GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)
+P.plot_learning_curve(GaussianNB(), 'Learning Curve For GaussianNB Model', X, y, cv=5)
 

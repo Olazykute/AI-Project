@@ -14,8 +14,7 @@ print("Decision Tree Model")
 X, y = P.data_transfer(P.data_0.filtered)
 
 X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.2)
-X_train = P.data_scaling(X_train)
-X_test = P.data_scaling(X_test)
+X_train, X_test = P.data_scaling(X_train, X_test)
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
 
@@ -31,10 +30,10 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
 
-""" 
+
 P.Model_Report(model_clf, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for DecisionTreeClassifier model')
-"""
+
 
 """ 
 param_grid = {  # This part is to research the best parameters to maximize the model's accuracy

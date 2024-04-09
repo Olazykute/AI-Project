@@ -8,7 +8,6 @@ from joblib import dump, load
 from sklearn.preprocessing import StandardScaler
 
 
-
 class Data:
     def __init__(self, path):
         self.raw = pl.read_csv(path)
@@ -87,11 +86,12 @@ def data_transfer(df):
     return X, y
 
 
-def data_scaling(x):
+def data_scaling(x_train, x_test):
     scaler = StandardScaler()
     # Fit the scaler to your data and transform the matrix
-    x = scaler.fit_transform(x)
-    return x
+    x_tr = scaler.fit_transform(x_train)
+    x_tst = scaler.transform(x_test)
+    return x_tr, x_tst
 
 
 def save_model(model, nom):
@@ -115,7 +115,7 @@ def training_model(model, X_train, y_train, X_test, y_test):
     return model, y_pred, y_pred_train
 
 
-def Model_Report(model, X, y , y_test, y_pred):
+def Model_Report(model, X, y, y_test, y_pred):
 
     report = classification_report(y_test, y_pred)
     print(print("Classification Report on test:\n", report))
@@ -166,10 +166,11 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None,
     plt.show()
     return plt
 
+
 def plot_gauss(data_gauss):
     plt.figure(figsize=(12, 12))
 
-    i=0
+    i = 0
     for col in data_gauss.columns:
         # Calculer la moyenne et l'écart type
         moy = data_gauss[col].mean()
@@ -177,19 +178,21 @@ def plot_gauss(data_gauss):
 
         # Création de la courbe de répartition gaussienne
         x = np.linspace(moy - 3*std, moy + 3*std, 100)
-        y = (1/(std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - moy) / std) ** 2)
+        y = (1/(std * np.sqrt(2 * np.pi))) * \
+            np.exp(-0.5 * ((x - moy) / std) ** 2)
 
         # Plot de la courbe de répartition gaussienne
         plt.subplot(4, 4, i + 1)
         i += 1
         plt.plot(x, y, color='red')
         plt.hist(data_gauss[col], bins=50, density=True, color='blue')
-        #plt.title(f'{col}')
+        # plt.title(f'{col}')
         plt.xlabel(col)
         plt.ylabel('Fréquence')
     plt.legend()
-    plt.tight_layout()        
+    plt.tight_layout()
     plt.show()
+
 
 # print(data_0.raw)
 """ 

@@ -13,8 +13,7 @@ print("Random Forest Model")
 X, y = P.data_transfer(P.data_0.filtered)
 
 X_train, X_test, y_train, y_test = P.train_test_split(X, y, test_size=0.2)
-X_train = P.data_scaling(X_train)
-X_test = P.data_scaling(X_test)
+X_train, X_test = P.data_scaling(X_train, X_test)
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
 
@@ -26,14 +25,15 @@ model_clf, prediction_test, prediction_train = P.training_model(RandomForestClas
     max_leaf_nodes=10, bootstrap=True),
     X_train, y_train, X_test, y_test)
 '''
-model_clf, prediction_test, prediction_train = P.training_model(
-    RandomForestClassifier(), X_train, y_train, X_test, y_test)
+model_clf, prediction_test, prediction_train = P.training_model(RandomForestClassifier(), X_train, y_train, X_test, y_test)
 # P.save_model(model_clf, 'Vehicle_prediction_RandomForest')
 
 """ 
 P.Model_Report(model_clf, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for RandomForestClassifier model')
 """
+
+
 """
 tree_to_plot = model_clf.estimators_[5]
 P.plt.figure(figsize=(20, 10))
@@ -88,5 +88,4 @@ end_time = time.perf_counter()
 print("Execution time: ", end_time - start_time)
 
 # Plot learning curve
-P.plot_learning_curve(
-    model_clf, 'Learning Curve For Random Forest Model', X, y, cv=5)
+P.plot_learning_curve(model_clf, 'Learning Curve For Random Forest Model', X, y, cv=5)
