@@ -30,11 +30,6 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
 
-
-P.Model_Report(model_clf, X, y, y_test, prediction_test)
-P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for DecisionTreeClassifier model')
-
-
 """ 
 param_grid = {  # This part is to research the best parameters to maximize the model's accuracy
     'criterion': ['gini', 'entropy'], #entropy
@@ -55,7 +50,10 @@ print("Best score: ", HGSearch.best_score_)
 # df = pl.DataFrame(HGSearch.cv_results_)
 """
 end_time = time.perf_counter()
-print("Execution time: ", end_time - start_time)
+print("Execution time: ",(end_time - start_time)*1000)
+
+P.Model_Report(model_clf, X, y, y_test, prediction_test)
+P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for DecisionTreeClassifier model')
 
 # Plot the Decision Tree
 P.plt.figure(figsize=(20,12))

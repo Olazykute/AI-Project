@@ -8,7 +8,6 @@ import time
 
 start_time = time.perf_counter()
 
-# KNN, Decision tree/RandomForest, SVM,, Optimisation Bayesienne to see what are the best parameters to tune our model
 print("Random Forest Model")
 X, y = P.data_transfer(P.data_0.filtered)
 
@@ -28,25 +27,6 @@ model_clf, prediction_test, prediction_train = P.training_model(RandomForestClas
 model_clf, prediction_test, prediction_train = P.training_model(RandomForestClassifier(), X_train, y_train, X_test, y_test)
 # P.save_model(model_clf, 'Vehicle_prediction_RandomForest')
 
-""" 
-P.Model_Report(model_clf, X, y, y_test, prediction_test)
-P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for RandomForestClassifier model')
-"""
-
-
-"""
-tree_to_plot = model_clf.estimators_[5]
-P.plt.figure(figsize=(20, 10))
-plot_tree(tree_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
-    'Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'], filled=True)
-P.plt.title('RandomForest tree number 5')
-tree2_to_plot = model_clf.estimators_[7]
-P.plt.figure(figsize=(18, 12))
-plot_tree(tree2_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
-    'Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'], filled=True)
-P.plt.title('RandomForest tree number 7')
-P.plt.show()
-"""
 
 '''
 # This part is to research the best parameters to maximize the model's accuracy
@@ -85,7 +65,22 @@ print("Best Params:", search.best_params_)
 print("Best score: ", search.best_score_)
 '''
 end_time = time.perf_counter()
-print("Execution time: ", end_time - start_time)
+print("Execution time: ", (end_time - start_time)*1000)
+
+P.Model_Report(model_clf, X, y, y_test, prediction_test)
+P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for RandomForestClassifier model')
+
+tree_to_plot = model_clf.estimators_[5]
+P.plt.figure(figsize=(20, 10))
+plot_tree(tree_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
+    'Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'], filled=True)
+P.plt.title('RandomForest tree number 5')
+tree2_to_plot = model_clf.estimators_[7]
+P.plt.figure(figsize=(18, 12))
+plot_tree(tree2_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
+    'Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'], filled=True)
+P.plt.title('RandomForest tree number 7')
+P.plt.show()
 
 # Plot learning curve
 P.plot_learning_curve(model_clf, 'Learning Curve For Random Forest Model', X, y, cv=5)

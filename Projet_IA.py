@@ -195,11 +195,10 @@ def plot_gauss(data_gauss):
 
 
 # print(data_0.raw)
-""" 
 
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
-"""
+
 # cal_corr(data_0.filtered)
 # correlation_matrix(data_0.filtered)
 
