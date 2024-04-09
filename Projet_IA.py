@@ -8,6 +8,7 @@ from joblib import dump, load
 from sklearn.preprocessing import StandardScaler
 
 
+
 class Data:
     def __init__(self, path):
         self.raw = pl.read_csv(path)
@@ -191,13 +192,16 @@ def plot_gauss(data_gauss):
     plt.show()
 
 # print(data_0.raw)
+""" 
+
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
+"""
 # cal_corr(data_0.filtered)
 # correlation_matrix(data_0.filtered)
 
 data_gauss = data_0.filtered.drop(columns='Target')
-plot_gauss(data_gauss)
+# plot_gauss(data_gauss)
 
 
 '''

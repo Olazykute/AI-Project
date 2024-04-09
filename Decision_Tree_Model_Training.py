@@ -6,6 +6,9 @@ from sklearn.experimental import enable_halving_search_cv
 # now you can import normally from model_selection
 from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.model_selection import HalvingRandomSearchCV
+import time
+
+start_time = time.perf_counter()
 
 print("Decision Tree Model")
 X, y = P.data_transfer(P.data_0.filtered)
@@ -27,9 +30,11 @@ model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeCla
 model_clf,  prediction_test, prediction_train = P.training_model(DecisionTreeClassifier(),X_train, y_train, X_test, y_test)
 
 # P.save_model(model_clf, 'Vehicle_prediction_DecisionTree')
+
+""" 
 P.Model_Report(model_clf, X, y, y_test, prediction_test)
-P.disp_confusionMatrix(model_clf, y_test, prediction_test,
-                       'Confusion matrix for DecisionTreeClassifier model')
+P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for DecisionTreeClassifier model')
+"""
 
 """ 
 param_grid = {  # This part is to research the best parameters to maximize the model's accuracy
@@ -50,6 +55,8 @@ print("Best score: ", HGSearch.best_score_)
 '''
 # df = pl.DataFrame(HGSearch.cv_results_)
 """
+end_time = time.perf_counter()
+print("Execution time: ", end_time - start_time)
 
 # Plot the Decision Tree
 P.plt.figure(figsize=(20,12))
