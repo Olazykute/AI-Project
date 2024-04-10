@@ -26,6 +26,8 @@ model_clf, prediction_test, prediction_train = P.training_model(RandomForestClas
 '''
 model_clf, prediction_test, prediction_train = P.training_model(RandomForestClassifier(), X_train, y_train, X_test, y_test)
 #Change hyperparameters to reduce overfitting
+#example max_depth =30, n_estimators = 100, min_samples_leaf=1, max_leaf_nodes=20, bootstrap=True
+
 # P.save_model(model_clf, 'Vehicle_prediction_RandomForest')
 
 
@@ -68,9 +70,11 @@ print("Best score: ", search.best_score_)
 end_time = time.perf_counter()
 print("Execution time: ", (end_time - start_time)*1000)
 
+# Print evaluation data
 P.Model_Report(model_clf, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for RandomForestClassifier model')
 
+# Plot 2 of the Decision Trees (5 and 7 are chosen arbitrarily)
 tree_to_plot = model_clf.estimators_[5]
 P.plt.figure(figsize=(20, 10))
 plot_tree(tree_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[

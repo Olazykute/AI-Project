@@ -17,8 +17,6 @@ X_train, X_test = P.data_scaling(X_train, X_test)
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
 
-P.np.random.seed(42)
-
 KNeighbors_model, prediction_test, prediction_train = P.training_model(KNeighborsClassifier(n_neighbors=4), X_train, y_train, X_test, y_test)
 
 end_time = time.perf_counter()
@@ -29,8 +27,6 @@ P.disp_confusionMatrix(KNeighbors_model, y_test,prediction_test, 'Confusion matr
 
 # Save the model in a document joblib, dump to save, load is explicit
 # save_model(KNeighbors_model_model, 'Vehicle_prediction_KNeighbors_model')
-
-KNeighbors_model.kneighbors_graph()
 
 # Plot learning curve
 P.plot_learning_curve(KNeighbors_model, 'Learning Curve For Kneighbors_Model', X, y, cv=5)

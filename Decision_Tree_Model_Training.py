@@ -52,6 +52,7 @@ print("Best score: ", HGSearch.best_score_)
 end_time = time.perf_counter()
 print("Execution time: ",(end_time - start_time)*1000)
 
+# Print evaluation data
 P.Model_Report(model_clf, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(model_clf, y_test, prediction_test,'Confusion matrix for DecisionTreeClassifier model')
 

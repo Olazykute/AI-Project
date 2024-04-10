@@ -2,7 +2,6 @@ import Projet_IA as P
 from sklearn.naive_bayes import GaussianNB
 import time
 
-
 start_time = time.perf_counter()
 
 print("GaussianNB Model")
@@ -16,13 +15,13 @@ X_train, X_test = P.data_scaling(X_train, X_test)
 X = P.np.concatenate((X_train, X_test), axis=0)
 y = P.np.concatenate((y_train, y_test), axis=0)
 
-
 # GaussianNB_model=GaussianNB()
 GaussianNB_model, prediction_test, prediction_train = P.training_model(GaussianNB(), X_train, y_train, X_test, y_test)
 
 end_time = time.perf_counter()
 print("Execution time: ", (end_time - start_time)*1000)
 
+# Print evaluation data
 P.Model_Report(GaussianNB_model, X, y, y_test, prediction_test)
 P.disp_confusionMatrix(GaussianNB_model, y_test,prediction_test, 'Confusion matrix for GaussianNB model')
 
