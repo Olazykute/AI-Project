@@ -38,7 +38,6 @@ def cal_corr(df, threshold=0.7):  # Calculate and show highly correlated columns
     return highly_correlated_cols
   
 
-
 def drop_corr(df, highly_correlated_cols):  # Drop highly correlated columns
     for i, col_pair in enumerate(highly_correlated_cols):
         j_col = col_pair
@@ -80,7 +79,7 @@ def correlation_matrix(df):  # plot correlation matrix
     plt.yticks(range(len(corr.columns)), corr.columns)
     plt.show()
 
-
+# Separate the data into two parts: the characteristics and the target
 def data_transfer(df):
     X = df[:, 1:len(df)]  # Caracteristics / Parameters
     y = df[:, 0]  # Results (classes) / target
@@ -88,7 +87,7 @@ def data_transfer(df):
     y = y.to_numpy()
     return X, y
 
-
+# Scale the data
 def data_scaling(x_train, x_test):
     scaler = StandardScaler()
     # Fit the scaler to your data and transform the matrix
@@ -117,7 +116,7 @@ def training_model(model, X_train, y_train, X_test, y_test):
 
     return model, y_pred, y_pred_train
 
-
+# Print a model report to evaluate the model
 def Model_Report(model, X, y, y_test, y_pred):
 
     report = classification_report(y_test, y_pred)
@@ -170,21 +169,22 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None, n_jobs=None,
     return plt
 
 
+# Plot the gaussian distribution of the data
 def plot_gauss(data_gauss):
     plt.figure(figsize=(12, 12))
 
     i = 0
     for col in data_gauss.columns:
-        # Calculer la moyenne et l'écart type
+        # Calculate the mean and standard deviation
         moy = data_gauss[col].mean()
         std = data_gauss[col].std()
 
-        # Création de la courbe de répartition gaussienne
+        # Create the x and y values for the gaussian distribution
         x = np.linspace(moy - 3*std, moy + 3*std, 100)
         y = (1/(std * np.sqrt(2 * np.pi))) * \
             np.exp(-0.5 * ((x - moy) / std) ** 2)
 
-        # Plot de la courbe de répartition gaussienne
+        # Plot the gaussian distribution
         plt.subplot(4, 4, i + 1)
         i += 1
         plt.plot(x, y, color='red')
@@ -200,14 +200,13 @@ def plot_gauss(data_gauss):
 
 hc_cols = cal_corr(data_0.raw)
 data_0.filtered = drop_corr(data_0.raw, hc_cols)
-# print(data_0.filtered)
-
-# cal_corr(data_0.filtered)
-# correlation_matrix(data_0.raw)
-# correlation_matrix(data_0.filtered)
+print(data_0.filtered)
+cal_corr(data_0.filtered)
+correlation_matrix(data_0.raw)
+correlation_matrix(data_0.filtered)
 
 data_gauss = data_0.filtered.drop('Target')
-# plot_gauss(data_gauss)
+plot_gauss(data_gauss)
 
 
 

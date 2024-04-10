@@ -80,6 +80,7 @@ P.plt.figure(figsize=(20, 10))
 plot_tree(tree_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
     'Sudden Acceleration', 'Sudden Right Turn', 'Sudden Left Turn', 'Sudden Break'], filled=True)
 P.plt.title('RandomForest tree number 5')
+
 tree2_to_plot = model_clf.estimators_[7]
 P.plt.figure(figsize=(18, 12))
 plot_tree(tree2_to_plot, feature_names=P.data_0.filtered[1, 1:len(P.data_0.filtered)].columns, class_names=[
